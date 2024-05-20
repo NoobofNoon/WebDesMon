@@ -395,7 +395,7 @@
       const name = prompt("Please enter your name:");
       const address = prompt("Please enter your address:");
       const email = prompt("Please enter your email address:");
-
+      
       let totalPrice = 0;
       let orderSummary = "";
 
@@ -425,11 +425,18 @@
           console.error(`Could not find product element for name: ${item.name}`);
         }
       }
-      
+
       orderSummary += `\nTotal: ₱${totalPrice.toFixed(2)}`;
       
-      alert(`Thank you, ${name}!\nYour order total is ₱${totalPrice.toFixed(2)}.\nYour order will be shipped to ${address}.\nWe will send a confirmation email to ${email}.\n\nOrder Summary:\n${orderSummary}`);
-      clearCart();
+      const amountGiven = parseFloat(prompt("Please enter the amount of money you will give:"));
+      const change = amountGiven - totalPrice;
+
+      if (amountGiven < totalPrice) {
+        alert(`The amount given is insufficient. You need to provide at least ₱${totalPrice.toFixed(2)}.`);
+      } else {
+        alert(`Thank you, ${name}!\nYour order total is ₱${totalPrice.toFixed(2)}.\nYou gave ₱${amountGiven.toFixed(2)}. Your change is ₱${change.toFixed(2)}.\nYour order will be shipped to ${address}.\nWe will send a confirmation email to ${email}.\n\nOrder Summary:\n${orderSummary}`);
+        clearCart();
+      }
     }   
 
     updateSummaryCart();
